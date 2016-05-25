@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForwardMails", "ForwardMails\ForwardMails.csproj", "{366BBC67-E8FE-4D84-857A-C82FEABF81DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForwardMailsService", "ForwardMails\ForwardMailsService.csproj", "{366BBC67-E8FE-4D84-857A-C82FEABF81DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForwardMailsLibrary", "ForwardMailsLibrary\ForwardMailsLibrary.csproj", "{CF36F851-3400-4DBF-A773-99703B30FEDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{366BBC67-E8FE-4D84-857A-C82FEABF81DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{366BBC67-E8FE-4D84-857A-C82FEABF81DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{366BBC67-E8FE-4D84-857A-C82FEABF81DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF36F851-3400-4DBF-A773-99703B30FEDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF36F851-3400-4DBF-A773-99703B30FEDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF36F851-3400-4DBF-A773-99703B30FEDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF36F851-3400-4DBF-A773-99703B30FEDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,6 @@
-﻿namespace ForwardMails
+﻿namespace ForwardMailsService
 {
-    partial class Service1
+    partial class ForwardMailSVC
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,8 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            // 
+            // ForwardMailSVC
+            // 
             this.ServiceName = "Service1";
+
         }
 
         #endregion
