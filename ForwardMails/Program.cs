@@ -5,6 +5,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 using Serilog;
+using InfluxDB.Collector;
 
 namespace ForwardMailsService
 {
@@ -15,13 +16,63 @@ namespace ForwardMailsService
         /// </summary>
         static void Main()
         {
+            bool TimeSeriesLogging = Properties.Settings.Default.TimeSeriesLogging;
+            string TimeSeriesDBAddress = Properties.Settings.Default.TimeSeriesDBAddress;
+            string TimeSeriesDBName = Properties.Settings.Default.TimeSeriesDBName;
+            string TimeSeriesDBUser = Properties.Settings.Default.TimeSeriesDBUser;
+            string TimeSeriesDBPassword = Properties.Settings.Default.TimeSeriesDBPassword;
 
-            Log.Logger = new LoggerConfiguration()
+
+            try
+            {
+                Log.Logger = new LoggerConfiguration()
                            .ReadFrom.AppSettings()
                            .CreateLogger();
 
-            Log.Debug("Hello Serilog!");
-            Log.Information("Starting Process");
+                Log.Debug("Hello Serilog!");
+                Log.Information("Starting Process");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+
+            if (TimeSeriesLogging && (string.IsNullOrEmpty(TimeSeriesDBAddress) || string.IsNullOrEmpty(TimeSeriesDBName)))
+            {
+                Log.Error("Time Series Logging enable but parameter(s) missing. Exiting...");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(TimeSeriesDBUser))
+            {
+                TimeSeriesDBUser = null;
+            }
+            if (string.IsNullOrEmpty(TimeSeriesDBPassword))
+            {
+                TimeSeriesDBPassword = null;
+            }
+
+
+            if (TimeSeriesLogging)
+            {
+                try
+                {
+                    Metrics.Collector = new CollectorConfiguration()
+                      .Tag.With("host", Environment.GetEnvironmentVariable("COMPUTERNAME"))
+                      .Batch.AtInterval(TimeSpan.FromSeconds(2))
+                      .WriteTo.InfluxDB(TimeSeriesDBAddress,TimeSeriesDBName,TimeSeriesDBUser,TimeSeriesDBPassword)
+                      .CreateCollector();
+
+                    Log.Information("Metrics Collector Created");
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "Unable to create Metrics Collector. Exiting.");
+                    return;
+                }
+            }
+            
 
 #if (!DEBUG)
             ServiceBase[] ServicesToRun;

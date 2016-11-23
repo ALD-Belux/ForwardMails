@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Serilog;
+using InfluxDB.Collector;
 
 namespace ForwardMailsLibrary
 {
@@ -17,7 +18,7 @@ namespace ForwardMailsLibrary
         private Folder dstFolder;
 
 
-        public ForwardMails(string mailboxSMTP, string srcFolderName, string dstFolderName, ExchangeVersion requestedServerVersion = ExchangeVersion.Exchange2010_SP2)
+        public ForwardMails(string mailboxSMTP, string srcFolderName, string dstFolderName, bool impersonate, ExchangeVersion requestedServerVersion = ExchangeVersion.Exchange2010_SP2)
         {
             try
             {
@@ -25,10 +26,12 @@ namespace ForwardMailsLibrary
                 ExchangeService service = new ExchangeService(requestedServerVersion);
                 service.UseDefaultCredentials = true;
                 service.AutodiscoverUrl(mailboxSMTP);
-                service.ImpersonatedUserId = new ImpersonatedUserId(ConnectingIdType.SmtpAddress, mailboxSMTP);
+                if(impersonate)
+                    service.ImpersonatedUserId = new ImpersonatedUserId(ConnectingIdType.SmtpAddress, mailboxSMTP);
                 this.service = service;
                 this.mailboxSMTP = mailboxSMTP;
                 Log.Debug("ExchangeService: Ready");
+
             }
             catch (Exception ex)
             {
@@ -87,6 +90,7 @@ namespace ForwardMailsLibrary
         public void ForwardMailsInFolder(string forwardAddress, bool delete)
         {
             Log.Debug("Entering ForwardMailInFolder with delete = {delete}", delete);
+            Metrics.Increment("mainForwardLoopIteration");
 
             int offset = 0;
             int pageSize = 50;
@@ -121,6 +125,9 @@ namespace ForwardMailsLibrary
                 {
                     Log.Debug("{nbEmails} founds. Get properties.", emails.Count);
                     
+                    Metrics.Increment("mailsFoundLoopIteration");
+                    Metrics.Measure("nbMailsToForward", emails.Count);
+                    
                     PropertySet properties = new PropertySet(BasePropertySet.FirstClassProperties);
                     service.LoadPropertiesForItems(emails, properties);
 
@@ -138,11 +145,13 @@ namespace ForwardMailsLibrary
                         try
                         {
                             Log.Debug("Forward mail to: {forwardAddress}", forwardAddress);
+                            Metrics.Increment("mailForwarded");
                             msg.Forward(messageBodyPrefix, addresses);
                         }
                         catch (Exception ex)
                         {
                             Log.Error(ex, "Failed to forward mails.");
+                            Metrics.Increment("mailForwardError");
                             throw;
                         }
                         try
@@ -153,6 +162,7 @@ namespace ForwardMailsLibrary
                         catch (Exception ex)
                         {
                             Log.Error(ex, "Failed to move mails.");
+                            Metrics.Increment("mailMoveError");
                             throw;
                         }                    
                         
@@ -161,14 +171,28 @@ namespace ForwardMailsLibrary
                     Log.Debug("Delete mail? {DeleteMail}", delete);
                     if (delete)
                     {
-                        Log.Information("Start Bulk Delete of {nbMailsToDelete} mails", allResultsID.Count);
-                        service.DeleteItems(allResultsID, DeleteMode.SoftDelete, SendCancellationsMode.SendToNone, AffectedTaskOccurrence.AllOccurrences);
+                        int nbMailsToDelete = allResultsID.Count;
+                        Log.Information("Start Bulk Delete of {nbMailsToDelete} mails", nbMailsToDelete);
+                        try
+                        {
+                            service.DeleteItems(allResultsID, DeleteMode.SoftDelete, SendCancellationsMode.SendToNone, AffectedTaskOccurrence.AllOccurrences);
+                            Metrics.Measure("MailDeleted", nbMailsToDelete);
+                        }
+                        catch (Exception ex)
+                        {
+
+                            Log.Error(ex, "Failed to delete mails.");
+                            Metrics.Increment("mailDeleteError");
+                            throw;
+                        }
+                        
                     }
                 }
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Failed to forward or move mails.");
+                Log.Error(ex, "Failed to forward, move or delete mails.");
+                Metrics.Increment("mailProcessError");
                 throw;
             }
 

@@ -1,10 +1,7 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ForwardMails.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ForwardMailsService.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="MailboxSMTP" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">lu.delivery.miles@aldautomotive.com</Value>
-    </Setting>
     <Setting Name="DeleteWhenForwarded" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
     </Setting>
@@ -12,7 +9,7 @@
       <Value Profile="(Default)">Exchange2010_SP2</Value>
     </Setting>
     <Setting Name="ForwardAddress" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">cedric.ghiot@aldautomotive.com</Value>
+      <Value Profile="(Default)">mail@example.org</Value>
     </Setting>
     <Setting Name="ProcessIntervalMs" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">10000</Value>
@@ -22,6 +19,27 @@
     </Setting>
     <Setting Name="DestinationInboxMailsSubFolderName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Forwarded</Value>
+    </Setting>
+    <Setting Name="MailboxSMTP" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">forward@example.org</Value>
+    </Setting>
+    <Setting Name="Impersonate" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="TimeSeriesLogging" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="TimeSeriesDBAddress" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://192.168.227.128:8086</Value>
+    </Setting>
+    <Setting Name="TimeSeriesDBName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">MailForward</Value>
+    </Setting>
+    <Setting Name="TimeSeriesDBUser" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="TimeSeriesDBPassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

@@ -25,15 +25,6 @@ namespace ForwardMailsService.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("lu.delivery.miles@aldautomotive.com")]
-        public string MailboxSMTP {
-            get {
-                return ((string)(this["MailboxSMTP"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool DeleteWhenForwarded {
             get {
@@ -52,7 +43,7 @@ namespace ForwardMailsService.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("cedric.ghiot@aldautomotive.com")]
+        [global::System.Configuration.DefaultSettingValueAttribute("mail@example.org")]
         public string ForwardAddress {
             get {
                 return ((string)(this["ForwardAddress"]));
@@ -83,6 +74,69 @@ namespace ForwardMailsService.Properties {
         public string DestinationInboxMailsSubFolderName {
             get {
                 return ((string)(this["DestinationInboxMailsSubFolderName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("forward@example.org")]
+        public string MailboxSMTP {
+            get {
+                return ((string)(this["MailboxSMTP"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Impersonate {
+            get {
+                return ((bool)(this["Impersonate"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool TimeSeriesLogging {
+            get {
+                return ((bool)(this["TimeSeriesLogging"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://192.168.227.128:8086")]
+        public string TimeSeriesDBAddress {
+            get {
+                return ((string)(this["TimeSeriesDBAddress"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("MailForward")]
+        public string TimeSeriesDBName {
+            get {
+                return ((string)(this["TimeSeriesDBName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TimeSeriesDBUser {
+            get {
+                return ((string)(this["TimeSeriesDBUser"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TimeSeriesDBPassword {
+            get {
+                return ((string)(this["TimeSeriesDBPassword"]));
             }
         }
     }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using ForwardMailsLibrary;
 using Serilog;
-
+using InfluxDB.Collector;
 
 namespace ForwardMailsService
 {
@@ -23,6 +23,7 @@ namespace ForwardMailsService
         private int processIntervalMs = Properties.Settings.Default.ProcessIntervalMs;
         private string srcMailsFolderName = Properties.Settings.Default.SourceInboxMailsSubFolderName;
         private string dstFolderName = Properties.Settings.Default.DestinationInboxMailsSubFolderName;
+        private bool impersonate = Properties.Settings.Default.Impersonate;
 
 
         private bool methodRunning = false;
@@ -47,7 +48,7 @@ namespace ForwardMailsService
         {
             try
             {
-                fwMails = new ForwardMails(mailboxSMTP, srcMailsFolderName, dstFolderName, requestedServerVersion);
+                fwMails = new ForwardMails(mailboxSMTP, srcMailsFolderName, dstFolderName, impersonate, requestedServerVersion);
             }
             catch (Exception)
             {
@@ -71,6 +72,7 @@ namespace ForwardMailsService
             catch (Exception)
             {
                 Log.Error("An error occured, please review previous logs");
+                Metrics.Increment("ErrorOccured");
             }
             methodRunning = false;
             timer.Enabled = true;
