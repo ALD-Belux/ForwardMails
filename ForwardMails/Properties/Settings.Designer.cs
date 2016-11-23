@@ -25,15 +25,6 @@ namespace ForwardMailsService.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("lu.delivery.miles@aldautomotive.com")]
-        public string MailboxSMTP {
-            get {
-                return ((string)(this["MailboxSMTP"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool DeleteWhenForwarded {
             get {
@@ -47,15 +38,6 @@ namespace ForwardMailsService.Properties {
         public global::Microsoft.Exchange.WebServices.Data.ExchangeVersion ExchangeVersion {
             get {
                 return ((global::Microsoft.Exchange.WebServices.Data.ExchangeVersion)(this["ExchangeVersion"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("cedric.ghiot@aldautomotive.com")]
-        public string ForwardAddress {
-            get {
-                return ((string)(this["ForwardAddress"]));
             }
         }
         
@@ -83,6 +65,24 @@ namespace ForwardMailsService.Properties {
         public string DestinationInboxMailsSubFolderName {
             get {
                 return ((string)(this["DestinationInboxMailsSubFolderName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("mail1@example.org")]
+        public string MailboxSMTP {
+            get {
+                return ((string)(this["MailboxSMTP"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("mail2@example.org")]
+        public string ForwardAddress {
+            get {
+                return ((string)(this["ForwardAddress"]));
             }
         }
     }

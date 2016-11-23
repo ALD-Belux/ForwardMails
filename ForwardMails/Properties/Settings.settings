@@ -1,18 +1,12 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ForwardMails.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ForwardMailsService.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="MailboxSMTP" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">lu.delivery.miles@aldautomotive.com</Value>
-    </Setting>
     <Setting Name="DeleteWhenForwarded" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="ExchangeVersion" Type="Microsoft.Exchange.WebServices.Data.ExchangeVersion" Scope="Application">
       <Value Profile="(Default)">Exchange2010_SP2</Value>
-    </Setting>
-    <Setting Name="ForwardAddress" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">cedric.ghiot@aldautomotive.com</Value>
     </Setting>
     <Setting Name="ProcessIntervalMs" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">10000</Value>
@@ -22,6 +16,12 @@
     </Setting>
     <Setting Name="DestinationInboxMailsSubFolderName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Forwarded</Value>
+    </Setting>
+    <Setting Name="MailboxSMTP" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">mail1@example.org</Value>
+    </Setting>
+    <Setting Name="ForwardAddress" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">mail2@example.org</Value>
     </Setting>
   </Settings>
 </SettingsFile>
